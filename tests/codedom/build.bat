@@ -30,7 +30,7 @@ for /f %%c IN (test.err) do (if NOT "%%c"=="0" (
    goto Error)
 )
 
-echo Ran fsharp CodeDom tests OK (ignore "FAIED" above- some failures expected)
+echo Ran fsharp CodeDom tests OK (ignore "FAILED" above- some failures expected)
 :Ok
 echo. > build.ok
 endlocal
