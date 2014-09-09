@@ -313,3 +313,7 @@ After initialization, you can
 ---
 
 <a href="http://fsprojects.github.io/ProjectScaffold" target="_blank">Sample API documents available here.</a>
+FSharp.Compiler.CodeDom
+=======================
+
+An F# CodeDOM implementation (based on the one in the F# power pack)
