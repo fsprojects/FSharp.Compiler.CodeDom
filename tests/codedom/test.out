@@ -1,0 +1,23 @@
+
+Ran 44 total tests.
+    10 failed
+    34 passed
+
+We have the following failures in CodeDom tests. If a comment is shown then these are expected (CodeDom support for F# is not fully complete):
+ - CallingFieldTest (Static Fields with an InitExpression are Not Initialized Correctly)
+ - CallMethodTest (F# doesn't support C# 'new' keyword)
+ - CheckSumTest (no #pragma checksum in F# afaik)
+ - DeclareField (public static fields not allowed in F#)
+ - GenericsTest (F# doesn't permit Dictionary<_,_>() to be called without an equality constraint)
+ - IndexersTest (Overriding of abstract indexers not supported by F#)
+ - PartialClassTest (partial classes not supported)
+ - RegionDirectiveTest (#region isn't supported by F#)
+ - TypeTest (public static fields not allowed in F#)
+ - VerbatimOrderingTest (order is irelevant - this test is odd)
+
+You can find the log, source, and/or assembly files in the directory:
+  C:\GitHub\fsprojects\FSharp.Compiler.CodeDom\tests\codedom\testoutput
+Each log, source or assembly file is called <testname>.{log|src|dll}, 
+respectively.
+
+FAILED
