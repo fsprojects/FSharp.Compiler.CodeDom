@@ -13,7 +13,6 @@ using System.Runtime.InteropServices;
 
 [assembly:ComVisible(false)]
 [assembly:CLSCompliantAttribute (true)]
-[assembly:FileIOPermission(SecurityAction.RequestMinimum)]
 namespace Microsoft.Samples.CodeDomTestSuite {
 
     /// <summary>

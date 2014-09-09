@@ -20,7 +20,6 @@ using Microsoft.JScript;
 
 [assembly:ComVisible (false)]
 [assembly:CLSCompliantAttribute (true)]
-[assembly:FileIOPermission (SecurityAction.RequestMinimum)]
 namespace Microsoft.Samples.CodeDomTestSuite {
 
 #if WHIDBEY
