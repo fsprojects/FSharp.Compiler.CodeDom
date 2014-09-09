@@ -58,6 +58,8 @@
     <Compile Include="CodeCompiler.fs" />
     <Compile Include="CodeProvider.fsi" />
     <Compile Include="CodeProvider.fs" />
+    <Compile Include="CleanCodeDomGenerator.fs" />
+    <Compile Include="CleanCodeProvider.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

@@ -20,17 +20,23 @@ Documentation
   <div class="span1"></div>
 </div>
 
+Overview
+-------
+
+The FSharp.Compiler.CodeDom component contains three CodeDom code generators related to F#.
+
+* _FSharpCodeProvider_. Generates compilable, correct but messy F# code for as many CodeDom constructs as possible. 
+  Suitable for generating code that is never read nor edited by humans.
+
+* _FSharpCleanCodeProvider_.  Generates clean F# code for a smaller subset of CodeDom constructs. 
+  Suitable for generating templates of code that may later be edited by humans.
+
+* _FSharpAspNetCodeProvider_. A legacy provider for quirks associated with earlier versions of ASP.NET code.
+
 Example
 -------
 
-This example demonstrates using a function defined in this sample library.
-
-*)
-#r "FSharp.Compiler.CodeDom.dll"
-open FSharp.Compiler.CodeDom
-
-
-(**
+Please see the [tutorial](tutorial.html).
 
 Samples & documentation
 -----------------------
@@ -57,9 +63,9 @@ The library is available under Public Domain license, which allows modification 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 
-  [content]: https://github.com/fsprojects/FSharp.ProjectScaffold/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/FSharp.ProjectScaffold
-  [issues]: https://github.com/fsprojects/FSharp.ProjectScaffold/issues
-  [readme]: https://github.com/fsprojects/FSharp.ProjectScaffold/blob/master/README.md
-  [license]: https://github.com/fsprojects/FSharp.ProjectScaffold/blob/master/LICENSE.txt
+  [content]: https://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/docs/content
+  [gh]: https://github.com/fsprojects/FSharp.Compiler.CodeDom
+  [issues]: https://github.com/fsprojects/FSharp.Compiler.CodeDom/issues
+  [readme]: https://github.com/fsprojects/FSharp.Compiler.CodeDom/blob/master/README.md
+  [license]: https://github.com/fsprojects/FSharp.Compiler.CodeDom/blob/master/LICENSE.txt
 *)

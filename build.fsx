@@ -32,14 +32,14 @@ let project = "FSharp.Compiler.CodeDom"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "A limited CodeDom implemenation for F#"
+let summary = "A limited CodeDom implementation for F#"
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "A limited CodeDom implemenation for F#"
+let description = "A limited CodeDom implementation for F#"
 
 // List of author names (for NuGet package)
-let authors = [ "F# Software Foundation, Microsoft" ]
+let authors = [ "F# Software Foundation"; "Microsoft" ]
 
 // Tags for your project (for NuGet package)
 let tags = "CodeDom, FSharp"
@@ -116,7 +116,7 @@ Target "CleanDocs" (fun _ ->
 
 Target "Build" (fun _ ->
     !! solutionFile
-    |> MSBuildRelease "" "Rebuild"
+    |> MSBuildRelease "" "Build"
     |> ignore
 )
 
@@ -186,8 +186,9 @@ Target "GenerateDocs" (fun _ ->
 
 Target "ReleaseDocs" (fun _ ->
     let tempDocsDir = "temp/gh-pages"
-    CleanDir tempDocsDir
-    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+    //CleanDir tempDocsDir
+    if not (System.IO.Directory.Exists tempDocsDir) then 
+        Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
 
     fullclean tempDocsDir
     CopyRecursive "docs/output" tempDocsDir true |> tracefn "%A"
@@ -212,8 +213,8 @@ Target "BuildPackage" DoNothing
 
 Target "All" DoNothing
 
-"Clean"
-  ==> "RestorePackages"
+//"Clean"
+"RestorePackages"
   ==> "AssemblyInfo"
   ==> "Build"
   ==> "RunTests"

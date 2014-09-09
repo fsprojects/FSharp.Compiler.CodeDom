@@ -233,7 +233,7 @@ After initialization, you can
       </td>
     </tr>
     <tr>
-      <td><a href="FSharp.ProjectScaffold.sln">FSharp.ProjectScaffold.sln</a></td>
+      <td><a href="FSharp.Compiler.CodeDom.sln">FSharp.Compiler.CodeDom.sln</a></td>
       <td>
         <p>This is a standard Visual Studio solution file. Use it to collect you projects, including tests. 
         Additionally, this example solution includes many of the important non-project files.
