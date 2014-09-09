@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Introduction
+    <title>Tutorial
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="A limited CodeDom implemenation for F#"/>
@@ -33,9 +33,9 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1>Introduction</h1>
+<h1>Tutorial</h1>
 
-<p>Say more</p>
+<p>This is an example of generating some code using the FSharpCleanCodeProvider. First we reference the assembly:</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
@@ -49,11 +49,136 @@
 </tr>
 </table>
 
-<p>Some more info</p>
+<p>Next we create an instance of the provider:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">cleanProvider</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 6)" onmouseover="showTip(event, 'fs2', 6)" class="i">Compiler</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 7)" onmouseover="showTip(event, 'fs3', 7)" class="i">CodeDom</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">FSharpCleanCodeProvider</span>()</pre>
+</td>
+</tr>
+</table>
+
+<p>Now we add some Code DOM constructs to a code unit:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">CodeDom</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">ccu</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="i">CodeCompileUnit</span>()
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 13)" onmouseover="showTip(event, 'fs10', 13)" class="i">nsp</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="i">CodeNamespace</span>(<span class="s">&quot;</span><span class="s">MyNamespace</span><span class="s">&quot;</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">ty</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 16)" onmouseover="showTip(event, 'fs13', 16)" class="i">CodeTypeDeclaration</span>(<span class="s">&quot;</span><span class="s">MyClass</span><span class="s">&quot;</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 17)" onmouseover="showTip(event, 'fs14', 17)" class="i">meth</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 18)" onmouseover="showTip(event, 'fs15', 18)" class="i">CodeEntryPointMethod</span>(<span class="i">Name</span><span class="o">=</span><span class="s">&quot;</span><span class="s">Main</span><span class="s">&quot;</span>)
+<span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="i">ty</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">Members</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 21)" onmouseover="showTip(event, 'fs17', 21)" class="i">Add</span> <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">meth</span>
+<span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="i">nsp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="i">Types</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 25)" onmouseover="showTip(event, 'fs19', 25)" class="i">Add</span>(<span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="i">ty</span>) 
+<span onmouseout="hideTip(event, 'fs8', 27)" onmouseover="showTip(event, 'fs8', 27)" class="i">ccu</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 28)" onmouseover="showTip(event, 'fs20', 28)" class="i">Namespaces</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 29)" onmouseover="showTip(event, 'fs21', 29)" class="i">Add</span>(<span onmouseout="hideTip(event, 'fs10', 30)" onmouseover="showTip(event, 'fs10', 30)" class="i">nsp</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>Now we generate the code:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 31)" onmouseover="showTip(event, 'fs22', 31)" class="i">options</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 32)" onmouseover="showTip(event, 'fs23', 32)" class="i">Compiler</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 33)" onmouseover="showTip(event, 'fs24', 33)" class="i">CodeGeneratorOptions</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 34)" onmouseover="showTip(event, 'fs25', 34)" class="i">sw</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs6', 35)" onmouseover="showTip(event, 'fs6', 35)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 36)" onmouseover="showTip(event, 'fs26', 36)" class="i">IO</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 37)" onmouseover="showTip(event, 'fs27', 37)" class="i">StringWriter</span>()
+<span onmouseout="hideTip(event, 'fs4', 38)" onmouseover="showTip(event, 'fs4', 38)" class="i">cleanProvider</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 39)" onmouseover="showTip(event, 'fs28', 39)" class="i">GenerateCodeFromCompileUnit</span>(<span onmouseout="hideTip(event, 'fs8', 40)" onmouseover="showTip(event, 'fs8', 40)" class="i">ccu</span>,<span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="i">sw</span>,<span onmouseout="hideTip(event, 'fs22', 42)" onmouseover="showTip(event, 'fs22', 42)" class="i">options</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 43)" onmouseover="showTip(event, 'fs29', 43)" class="i">code</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs25', 44)" onmouseover="showTip(event, 'fs25', 44)" class="i">sw</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 45)" onmouseover="showTip(event, 'fs30', 45)" class="i">ToString</span>()</pre>
+</td>
+</tr>
+</table>
+
+<p>The generated code is shown as a string below:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="s">&quot;&quot;&quot;</span>
+<span class="s">namespace</span><span class="s"> </span><span class="s">MyNamespace</span>
+
+<span class="s">type</span><span class="s"> </span><span class="s">MyClass</span><span class="s">(</span><span class="s">)</span><span class="s"> </span><span class="s">=</span><span class="s"> </span>
+<span class="s">        </span><span class="s">static</span><span class="s"> </span><span class="s">member</span><span class="s"> </span><span class="s">Main</span><span class="s">  </span><span class="s">(</span><span class="s">)</span><span class="s"> </span><span class="s">=</span>
+<span class="s">            </span><span class="s">(</span><span class="s">)</span>
+
+<span class="s">module</span><span class="s"> </span><span class="s">__EntryPoint</span><span class="s"> </span><span class="s">=</span>
+
+<span class="s">    </span><span class="s">[</span><span class="s">&lt;</span><span class="s">EntryPoint</span><span class="s">&gt;</span><span class="s">]</span>
+<span class="s">    </span><span class="s">let</span><span class="s"> </span><span class="s">Main</span><span class="s"> </span><span class="s">(</span><span class="s">args</span><span class="s">:</span><span class="s">string</span><span class="s">[</span><span class="s">]</span><span class="s">)</span><span class="s"> </span><span class="s">=</span>
+<span class="s">        </span><span class="s">MyClass</span><span class="s">.</span><span class="s">Main</span><span class="s">(</span><span class="s">)</span>
+<span class="s">        </span><span class="s">0</span><span class="s">&quot;</span>
+<span class="s">&quot;&quot;&quot;</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Some extra code has been generated to match the F# model for entry points.</p>
 
 <div class="tip" id="fs1">namespace FSharp</div>
 <div class="tip" id="fs2">namespace FSharp.Compiler</div>
 <div class="tip" id="fs3">namespace FSharp.Compiler.CodeDom</div>
+<div class="tip" id="fs4">val cleanProvider : FSharpCleanCodeProvider<br /><br />Full name: Tutorial.cleanProvider</div>
+<div class="tip" id="fs5">Multiple items<br />type FSharpCleanCodeProvider =<br />&#160;&#160;inherit CodeDomProvider<br />&#160;&#160;new : unit -&gt; FSharpCleanCodeProvider<br />&#160;&#160;override CreateCompiler : unit -&gt; ICodeCompiler<br />&#160;&#160;override CreateGenerator : unit -&gt; ICodeGenerator<br />&#160;&#160;override FileExtension : string<br /><br />Full name: FSharp.Compiler.CodeDom.FSharpCleanCodeProvider<br /><br />--------------------<br />new : unit -&gt; FSharpCleanCodeProvider</div>
+<div class="tip" id="fs6">namespace System</div>
+<div class="tip" id="fs7">namespace System.CodeDom</div>
+<div class="tip" id="fs8">val ccu : CodeCompileUnit<br /><br />Full name: Tutorial.ccu</div>
+<div class="tip" id="fs9">Multiple items<br />type CodeCompileUnit =<br />&#160;&#160;inherit CodeObject<br />&#160;&#160;new : unit -&gt; CodeCompileUnit<br />&#160;&#160;member AssemblyCustomAttributes : CodeAttributeDeclarationCollection<br />&#160;&#160;member EndDirectives : CodeDirectiveCollection<br />&#160;&#160;member Namespaces : CodeNamespaceCollection<br />&#160;&#160;member ReferencedAssemblies : StringCollection<br />&#160;&#160;member StartDirectives : CodeDirectiveCollection<br /><br />Full name: System.CodeDom.CodeCompileUnit<br /><br />--------------------<br />CodeCompileUnit() : unit</div>
+<div class="tip" id="fs10">val nsp : CodeNamespace<br /><br />Full name: Tutorial.nsp</div>
+<div class="tip" id="fs11">Multiple items<br />type CodeNamespace =<br />&#160;&#160;inherit CodeObject<br />&#160;&#160;new : unit -&gt; CodeNamespace + 1 overload<br />&#160;&#160;member Comments : CodeCommentStatementCollection<br />&#160;&#160;member Imports : CodeNamespaceImportCollection<br />&#160;&#160;member Name : string with get, set<br />&#160;&#160;member Types : CodeTypeDeclarationCollection<br />&#160;&#160;event PopulateComments : EventHandler<br />&#160;&#160;event PopulateImports : EventHandler<br />&#160;&#160;event PopulateTypes : EventHandler<br /><br />Full name: System.CodeDom.CodeNamespace<br /><br />--------------------<br />CodeNamespace() : unit<br />CodeNamespace(name: string) : unit</div>
+<div class="tip" id="fs12">val ty : CodeTypeDeclaration<br /><br />Full name: Tutorial.ty</div>
+<div class="tip" id="fs13">Multiple items<br />type CodeTypeDeclaration =<br />&#160;&#160;inherit CodeTypeMember<br />&#160;&#160;new : unit -&gt; CodeTypeDeclaration + 1 overload<br />&#160;&#160;member BaseTypes : CodeTypeReferenceCollection<br />&#160;&#160;member IsClass : bool with get, set<br />&#160;&#160;member IsEnum : bool with get, set<br />&#160;&#160;member IsInterface : bool with get, set<br />&#160;&#160;member IsPartial : bool with get, set<br />&#160;&#160;member IsStruct : bool with get, set<br />&#160;&#160;member Members : CodeTypeMemberCollection<br />&#160;&#160;member TypeAttributes : TypeAttributes with get, set<br />&#160;&#160;member TypeParameters : CodeTypeParameterCollection<br />&#160;&#160;...<br /><br />Full name: System.CodeDom.CodeTypeDeclaration<br /><br />--------------------<br />CodeTypeDeclaration() : unit<br />CodeTypeDeclaration(name: string) : unit</div>
+<div class="tip" id="fs14">val meth : CodeEntryPointMethod<br /><br />Full name: Tutorial.meth</div>
+<div class="tip" id="fs15">Multiple items<br />type CodeEntryPointMethod =<br />&#160;&#160;inherit CodeMemberMethod<br />&#160;&#160;new : unit -&gt; CodeEntryPointMethod<br /><br />Full name: System.CodeDom.CodeEntryPointMethod<br /><br />--------------------<br />CodeEntryPointMethod() : unit</div>
+<div class="tip" id="fs16">property CodeTypeDeclaration.Members: CodeTypeMemberCollection</div>
+<div class="tip" id="fs17">CodeTypeMemberCollection.Add(value: CodeTypeMember) : int</div>
+<div class="tip" id="fs18">property CodeNamespace.Types: CodeTypeDeclarationCollection</div>
+<div class="tip" id="fs19">CodeTypeDeclarationCollection.Add(value: CodeTypeDeclaration) : int</div>
+<div class="tip" id="fs20">property CodeCompileUnit.Namespaces: CodeNamespaceCollection</div>
+<div class="tip" id="fs21">CodeNamespaceCollection.Add(value: CodeNamespace) : int</div>
+<div class="tip" id="fs22">val options : Compiler.CodeGeneratorOptions<br /><br />Full name: Tutorial.options</div>
+<div class="tip" id="fs23">namespace System.CodeDom.Compiler</div>
+<div class="tip" id="fs24">Multiple items<br />type CodeGeneratorOptions =<br />&#160;&#160;new : unit -&gt; CodeGeneratorOptions<br />&#160;&#160;member BlankLinesBetweenMembers : bool with get, set<br />&#160;&#160;member BracingStyle : string with get, set<br />&#160;&#160;member ElseOnClosing : bool with get, set<br />&#160;&#160;member IndentString : string with get, set<br />&#160;&#160;member Item : string -&gt; obj with get, set<br />&#160;&#160;member VerbatimOrder : bool with get, set<br /><br />Full name: System.CodeDom.Compiler.CodeGeneratorOptions<br /><br />--------------------<br />Compiler.CodeGeneratorOptions() : unit</div>
+<div class="tip" id="fs25">val sw : System.IO.StringWriter<br /><br />Full name: Tutorial.sw</div>
+<div class="tip" id="fs26">namespace System.IO</div>
+<div class="tip" id="fs27">Multiple items<br />type StringWriter =<br />&#160;&#160;inherit TextWriter<br />&#160;&#160;new : unit -&gt; StringWriter + 3 overloads<br />&#160;&#160;member Close : unit -&gt; unit<br />&#160;&#160;member Encoding : Encoding<br />&#160;&#160;member GetStringBuilder : unit -&gt; StringBuilder<br />&#160;&#160;member ToString : unit -&gt; string<br />&#160;&#160;member Write : value:char -&gt; unit + 2 overloads<br /><br />Full name: System.IO.StringWriter<br /><br />--------------------<br />System.IO.StringWriter() : unit<br />System.IO.StringWriter(formatProvider: System.IFormatProvider) : unit<br />System.IO.StringWriter(sb: System.Text.StringBuilder) : unit<br />System.IO.StringWriter(sb: System.Text.StringBuilder, formatProvider: System.IFormatProvider) : unit</div>
+<div class="tip" id="fs28">Compiler.CodeDomProvider.GenerateCodeFromCompileUnit(compileUnit: CodeCompileUnit, writer: System.IO.TextWriter, options: Compiler.CodeGeneratorOptions) : unit</div>
+<div class="tip" id="fs29">val code : string<br /><br />Full name: Tutorial.code</div>
+<div class="tip" id="fs30">System.IO.StringWriter.ToString() : string</div>
 
         </div>
         <div class="span3">
