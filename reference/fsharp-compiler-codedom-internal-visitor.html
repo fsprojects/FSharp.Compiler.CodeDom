@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Visitor - FSharp.Compiler.CodeDom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="F# Software Foundation, Microsoft"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FSharp.Compiler.CodeDom/content/style.css" />
+    <script type="text/javascript" src="/FSharp.Compiler.CodeDom/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharp.Compiler.CodeDom/index.html">FSharp.Compiler.CodeDom</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Visitor</h1>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1', 1)" onmouseover="showTip(event, '1', 1)">
+            children o
+          </code>
+          <div class="tip" id="1">
+            <strong>Signature:</strong> o:&#39;?14832 -&gt; seq&lt;obj&gt;<br />
+                          <strong>Type parameters:</strong> '?14832          </div>
+        </td>
+        <td class="xmldoc">
+        
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L66-66" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
+            codeDomCallBackNoScope f st o
+          </code>
+          <div class="tip" id="2">
+            <strong>Signature:</strong> f:((&#39;?14848 -&gt; &#39;?14849 -&gt; &#39;?14848) -&gt; &#39;?14848 -&gt; obj -&gt; &#39;?14848) -&gt; st:&#39;?14848 -&gt; o:&#39;?14850 -&gt; &#39;?14848<br />
+                          <strong>Type parameters:</strong> '?14848, '?14849, '?14850          </div>
+        </td>
+        <td class="xmldoc">
+        
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L101-101" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '3', 3)" onmouseover="showTip(event, '3', 3)">
+            codeDomCallbackWithScope f scope st o
+          </code>
+          <div class="tip" id="3">
+            <strong>Signature:</strong> f:((&#39;?14843 -&gt; &#39;?14844 -&gt; &#39;?14845 -&gt; &#39;?14844) -&gt; &#39;?14843 -&gt; &#39;?14844 -&gt; obj -&gt; &#39;?14844) -&gt; scope:&#39;?14843 -&gt; st:&#39;?14844 -&gt; o:&#39;?14846 -&gt; &#39;?14844<br />
+                          <strong>Type parameters:</strong> '?14843, '?14844, '?14845, '?14846          </div>
+        </td>
+        <td class="xmldoc">
+        <p>Walks through the CodeDom tree and keeps current "scope" and the result.
+The result is collected through entire tree, but the modified scope is 
+passed only to sub-nodes of the current node.</p>
+
+<p>First argument is a function that is called for nodes and has a 
+function as a first argument, scope and result as a second and current node as a third.
+The function argument can be used to walk deeper in the tree if wanted.</p>
+
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L100-100" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+            codeDomCallbackWithScopeAux f
+          </code>
+          <div class="tip" id="4">
+            <strong>Signature:</strong> f:((&#39;?14836 -&gt; &#39;?14837 -&gt; &#39;?14838 -&gt; &#39;?14837) -&gt; &#39;?14836 -&gt; &#39;?14837 -&gt; obj -&gt; &#39;?14837) -&gt; &#39;?14836 -&gt; &#39;?14837 -&gt; &#39;?14839 -&gt; &#39;?14837<br />
+                          <strong>Type parameters:</strong> '?14836, '?14837, '?14838, '?14839          </div>
+        </td>
+        <td class="xmldoc">
+        
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L78-78" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
+            codeDomFlatFilter f o
+          </code>
+          <div class="tip" id="5">
+            <strong>Signature:</strong> f:(obj -&gt; bool * bool) -&gt; o:&#39;?14841 -&gt; obj list<br />
+                          <strong>Type parameters:</strong> '?14841          </div>
+        </td>
+        <td class="xmldoc">
+        <p>Search for members and return flat list of selected members
+Function given as an argument returns tuple - first item specifies
+if the current element should be included in the result, the second
+specifies if we should walk through child members of the current object</p>
+
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L91-91" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
+            codeDomFold f st o
+          </code>
+          <div class="tip" id="6">
+            <strong>Signature:</strong> f:(&#39;?14834 -&gt; obj -&gt; &#39;?14834 * bool) -&gt; st:&#39;?14834 -&gt; o:obj -&gt; &#39;?14834<br />
+                          <strong>Type parameters:</strong> '?14834          </div>
+        </td>
+        <td class="xmldoc">
+        
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L68-68" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '7', 7)" onmouseover="showTip(event, '7', 7)">
+            memberMap 
+          </code>
+          <div class="tip" id="7">
+            <strong>Signature:</strong> (obj -&gt; obj list) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        <p>Get all relevant CodeDom properties of an object 
+- more functions can return properties for one object because of class hierarchy</p>
+
+            <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/tree/master/src/FSharp.Compiler.CodeDom/CodeDomVisitor.fs#L17-17" class="github-link">Go to GitHub source</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharp.Compiler.CodeDom/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharp.Compiler.CodeDom</li>
+            <li><a href="/FSharp.Compiler.CodeDom/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharp.Compiler.CodeDom">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/blob/master/LICENSE.txt">License</a></li>
+            <li><a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharp.Compiler.CodeDom/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharp.Compiler.CodeDom/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/fsprojects/FSharp.Compiler.CodeDom"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
