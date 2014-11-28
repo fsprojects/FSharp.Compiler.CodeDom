@@ -13,7 +13,7 @@ Documentation
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      The F# Compiler CodeDom tool can be <a href="https://nuget.org/packages/FSharp.ProjectTemplate">installed from NuGet</a>:
+      The F# Compiler CodeDom tool can be <a href="https://www.nuget.org/packages/FSharp.Compiler.CodeDom/">installed from NuGet</a>:
       <pre>PM> Install-Package FSharp.Compiler.CodeDom</pre>
     </div>
   </div>
