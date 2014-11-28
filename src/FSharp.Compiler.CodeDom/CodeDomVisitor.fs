@@ -10,10 +10,10 @@ open Microsoft.FSharp.Collections
 
 //---------------------------------------------------------------------------------------------
 // This module contains several utility functions for walking through CodeDom tree
-module Visitor = 
+module Visitor =
 
-  /// Get all relevant CodeDom properties of an object 
-  /// - more functions can return properties for one object because of class hierarchy 
+  /// Get all relevant CodeDom properties of an object
+  /// - more functions can return properties for one object because of class hierarchy
   let memberMap = [
       (fun (c:obj) -> match c with | :? CodeArrayCreateExpression as co -> [(co.CreateType:>obj); (co.Initializers:>obj); (co.SizeExpression:>obj);] | _ -> []);
       (fun (c:obj) -> match c with | :? CodeArrayIndexerExpression as co -> [(co.Indices:>obj); (co.TargetObject:>obj);] | _ -> []);
@@ -63,11 +63,11 @@ module Visitor =
       (fun (c:obj) -> match c with | :? CodeTypeReferenceExpression as co -> [(co.Type:>obj);] | _ -> []);
       (fun (c:obj) -> match c with | :? CodeVariableDeclarationStatement as co -> [(co.InitExpression:>obj); (co.Type:>obj);] | _ -> []) ];
 
-  let children o = memberMap |> Seq.collect (fun e -> e o) 
+  let children o = memberMap |> Seq.collect (fun e -> e o)
 
-  let rec codeDomFold f st o = 
-    match box o with 
-      | :? CollectionBase as cl -> 
+  let rec codeDomFold f st o =
+    match box o with
+      | :? CollectionBase as cl ->
            cl |> Seq.cast |> Seq.fold (codeDomFold f) st;
       | _ ->
            let (nst,recurse) = f st o;
@@ -75,26 +75,26 @@ module Visitor =
              o |> children |> Seq.fold (codeDomFold f) nst;
            else nst
 
-  let codeDomCallbackWithScopeAux f  = 
+  let codeDomCallbackWithScopeAux f  =
     let rec callback oscope res o =
-        match box o with 
-          | :? CollectionBase as cl -> 
+        match box o with
+          | :? CollectionBase as cl ->
               cl |> Seq.cast |> Seq.fold (f callback oscope) res;
           | _ ->
               o |> children |> Seq.fold (f callback oscope) res;
     f callback;
-                       
+
   /// Search for members and return flat list of selected members
   /// Function given as an argument returns tuple - first item specifies
   /// if the current element should be included in the result, the second
   /// specifies if we should walk through child members of the current object
-  let codeDomFlatFilter f o = codeDomFold ( fun st o -> let (inc,rc) = (f o) in if (inc) then (o::st,rc) else (st,rc) ) [] (box o)            
-  
+  let codeDomFlatFilter f o = codeDomFold ( fun st o -> let (inc,rc) = (f o) in if (inc) then (o::st,rc) else (st,rc) ) [] (box o)
+
   /// Walks through the CodeDom tree and keeps current "scope" and the result.
-  /// The result is collected through entire tree, but the modified scope is 
+  /// The result is collected through entire tree, but the modified scope is
   /// passed only to sub-nodes of the current node.
   ///
-  /// First argument is a function that is called for nodes and has a 
+  /// First argument is a function that is called for nodes and has a
   /// function as a first argument, scope and result as a second and current node as a third.
   /// The function argument can be used to walk deeper in the tree if wanted.
   let codeDomCallbackWithScope f scope st o = codeDomCallbackWithScopeAux f scope st (box o)
