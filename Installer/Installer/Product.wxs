@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*"
+           Name="FSharp.Compiler.CodeDom"
+           Language="1033"
+           Version="1.0.0.0"
+           Manufacturer="fsprojects"
+           UpgradeCode="f7577a35-41c5-4cfa-a3e1-c0c741c91a92">
+		<Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="FSharp.Compiler.CodeDom">
+          <Directory Id="GAC" Name="GAC" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="GAC">
+      <Component Id="RT_FSharpCompilerCodeDom"
+           Guid="17FC7800-C54C-497C-805E-3D645211D1E6">
+        <File Id="F_RT_FSharpCompilerCodeDom"
+              Name="FSharp.Compiler.CodeDom.dll"
+              Source="..\..\bin\FSharp.Compiler.CodeDom.dll"
+              KeyPath="yes"
+              Assembly=".net" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="DT_FSharpCompilerCodeDom"
+                 Guid="AC80FBA4-B7C0-4CAF-AFC1-0ABF7B0A9772">
+        <File Id="F_DT_FSharpCompilerCodeDom"
+              Name="FSharp.Compiler.CodeDom.dll"
+              Source="..\..\bin\FSharp.Compiler.CodeDom.dll"
+              KeyPath="yes" />
+        <RegistryKey Root="HKLM"
+                     Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\[ProductName]">
+          <RegistryValue Value="[$DT_FSharpCompilerCodeDom]"
+                         Type="string" />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="FSharp.Compiler.CodeDom" Level="1">
+      <ComponentRef Id="RT_FSharpCompilerCodeDom" />
+      <ComponentRef Id="DT_FSharpCompilerCodeDom" />
+    </Feature>
+
+    <Binary Id="ModifyMachineConfig.CA.dll"
+            SourceFile="..\ModifyMachineConfig\bin\$(var.Configuration)\ModifyMachineConfig.CA.dll" />
+
+    <CustomAction Id="AssignAssemblyName"
+                  Property="ASSEMBLYNAME"
+                  Value="FSharp.Compiler.CodeDom.FSharpCodeProvider, !(bind.AssemblyFullName.F_RT_FSharpCompilerCodeDom)" />
+    <CustomAction Id="AddToMachineConfig"
+                  Return="check"
+                  Execute="immediate"
+                  BinaryKey="ModifyMachineConfig.CA.dll"
+                  DllEntry="AddToMachineConfig" />
+    <CustomAction Id="RemoveFromMachineConfig"
+                  Return="check"
+                  Execute="immediate"
+                  BinaryKey="ModifyMachineConfig.CA.dll"
+                  DllEntry="RemoveFromMachineConfig" />
+
+    <InstallExecuteSequence>
+      <Custom Action="AssignAssemblyName" After="PublishProduct" />
+      <Custom Action="AddToMachineConfig" Before="InstallFinalize">
+        <![CDATA[NOT Installed]]>
+      </Custom>
+      <Custom Action="RemoveFromMachineConfig" Before="InstallFinalize">
+        <![CDATA[Installed AND NOT UPGRADINGPRODUCTCODE]]>
+      </Custom>
+    </InstallExecuteSequence>
+
+  </Product>
+
+</Wix>
