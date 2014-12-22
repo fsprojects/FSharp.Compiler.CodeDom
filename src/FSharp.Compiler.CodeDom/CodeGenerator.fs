@@ -1169,7 +1169,7 @@ let getMethodOverloads (membs:CodeTypeMemberCollection) =
 /// fields
 let generateField (c:CodeMemberField) =
   id
-  +> generateCustomAttrDecls c.CustomAttributes
+  +> generateCustomAttrDecls c.CustomAttributes ""
   +> if ((c.Attributes &&& MemberAttributes.ScopeMask) = MemberAttributes.Static) then
         id
         ++ "[<Microsoft.FSharp.Core.DefaultValueAttribute(false)>]"
@@ -1201,7 +1201,7 @@ let generateClassProperty (typ:MemberGenerateType)  (p:CodeMemberProperty) =
     else (id
           ++ ""
           +> generateInterfaceMemberProperty p))
-  +> generateCustomAttrDecls p.CustomAttributes
+  +> generateCustomAttrDecls p.CustomAttributes ""
   ++ if typ = MemberGenerateType.InsideStruct then "member this."
       elif (p.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Override) then "override  this."
       elif (p.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Static) then "static member "
@@ -1244,7 +1244,7 @@ let generateConstructor (c:CodeConstructor) =
                     (false, false) )
           |> List.map ( fun f -> f :?> CodeMemberField )
       id
-      +> (if c <> null then generateCustomAttrDecls c.CustomAttributes else id)
+      +> (if c <> null then generateCustomAttrDecls c.CustomAttributes "" else id)
       ++ "new("
       +> if (c <> null) then (col sepArgs c.Parameters generateParamDecl) else id
       -- ") as this ="
@@ -1300,7 +1300,7 @@ let generateInterfaceMemberMethod (c:CodeMemberMethod, overloadId:int) =
   usingTyParams tyargs
     (id
     +> col sepNone c.Comments generateStatement
-    +> generateCustomAttrDeclsList custAttrs
+    +> generateCustomAttrDeclsList custAttrs ""
     ++ "abstract "
     -- c.Name
     +> genTyArgs
@@ -1361,7 +1361,7 @@ let generateClassMemberMethod (typ:MemberGenerateType) (c:CodeMemberMethod, over
   let custAttrs = (c.CustomAttributes |> Seq.cast |> Seq.toList)
   id
   +> col sepNone c.Comments generateStatement
-  +> generateMethod typ c (generateCustomAttrDeclsList custAttrs)
+  +> generateMethod typ c (generateCustomAttrDeclsList custAttrs "")
 
 let generateEntryPointMethod (typ:MemberGenerateType) (c:CodeEntryPointMethod)  =
   id
@@ -1370,7 +1370,7 @@ let generateEntryPointMethod (typ:MemberGenerateType) (c:CodeEntryPointMethod)  
 
 let generateEvent (c:CodeMemberEvent) =
   id
-  +> generateCustomAttrDecls c.CustomAttributes
+  +> generateCustomAttrDecls c.CustomAttributes ""
   ++ "[<CLIEvent>]"
   ++ "member this." -- c.Name -- " ="
   +> incIndent
@@ -1407,7 +1407,7 @@ let generateCodeSnippetMember (c:CodeSnippetTypeMember) =
       id
       +> col sepNone c.Comments generateStatement
       +> generateLinePragma c.LinePragma
-      +> generateCustomAttrDecls c.CustomAttributes
+      +> generateCustomAttrDecls c.CustomAttributes ""
       +> colT sepNone lines ((++) id)
   else
       id
@@ -1645,7 +1645,7 @@ let generateMainMethod (c:CodeEntryPointMethod, t:CodeTypeDeclaration) (ns:CodeN
     ++ "[<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]"
     ++ "module __EntryPoint ="
     +> incIndent
-    +>   (generateCustomAttrDeclsList custAttrs)
+    +>   (generateCustomAttrDeclsList custAttrs "")
     ++   "let Main (args:string[]) ="
     +> incIndent
     // REVIEW: Do we need to pass this through the "rename" table?  Could use '(generateTypeRef t)', but we don't have a CodeTypeReference
@@ -1696,7 +1696,7 @@ let preprocessNamespace (c:CodeNamespace) =
               if (scope = []) then acc
               else addNameWithScope ty.Name scope acc ) Map.empty
 
-    //if (renames |> Seq.length) > 0 then
+    //if (renames <> Map.empty) then
     //    sprintf "#renames = %d\n" (renames |> Seq.length) |> System.Windows.Forms.MessageBox.Show |> ignore
 
     (c, flatClasses, renames |> Map.toSeq)
@@ -1780,6 +1780,7 @@ let generateCompileUnit (c:CodeCompileUnit) (preprocHacks:CodeCompileUnit -> uni
         preprocNs |> Seq.fold (fun (res, tmpNames) (c, cls, renames) ->
           (((c, cls, renames), getContainingNamespaces c tmpNames)::res, c.Name::tmpNames) ) ([], [])
       let namespacesWithPrev = namespacesWithPrev |> Seq.toList |> List.rev
+      let assemblyattrs = c.AssemblyCustomAttributes |> Seq.cast |> Seq.toList
 
       // renames |> Seq.map (fun (s, t) -> sprintf "%s --> %s\n" s t) |> Seq.toList |> String.concat "\n" |> System.Windows.Forms.MessageBox.Show |> ignore
 
@@ -1796,5 +1797,6 @@ let generateCompileUnit (c:CodeCompileUnit) (preprocHacks:CodeCompileUnit -> uni
       ++ ""
       ++ "namespace global"
       ++ ""
+      +> if assemblyattrs <> List.empty then generateCustomAttrDeclsList assemblyattrs "assembly" else id
       +> colT sepNln namespacesWithPrev generateNamespaceInternal
 
