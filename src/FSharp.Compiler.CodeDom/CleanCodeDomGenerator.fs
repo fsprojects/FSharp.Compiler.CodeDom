@@ -285,16 +285,14 @@ let resolveHierarchy (c:CodeTypeDeclaration) ctx =
     c.BaseTypes |> Seq.cast |> Seq.toList
       |> List.partition ( fun (r:CodeTypeReference) -> isInterface r ctx )
 
-  if (bcl.Length = 0) then
-    // All supertypes all interfaces
-    (None, interf)
-  elif (bcl.Length = 1) then
-    // Exactly one supertype is class, other were recognized as interfaces
-    (Some (List.head bcl), interf)
-  else
-    // Fallback case - we found more than one supertypes that look like a class
-    // so we just return the tryPick one and treat other as interfaces
-    (Some (List.head bcl), (List.tail bcl)@interf)
+  match bcl with
+  // All supertypes all interfaces
+  | [] -> (None, interf)
+  // Exactly one supertype is class, other were recognized as interfaces
+  | [x] -> (Some x, interf)
+  // Fallback case - we found more than one supertypes that look like a class
+  // so we just return the tryPick one and treat other as interfaces
+  | x::xs ->  (Some x, xs@interf)
 
 
 //---------------------------------------------------------------------------------------------
@@ -513,7 +511,7 @@ let processTypeArgs (args:CodeTypeParameterCollection) =
     +> if (args.Count = 0) then id -- ">" else
           let argsWithConstr = args |> Seq.cast |> Seq.filter (fun (p:CodeTypeParameter) ->
             p.Constraints.Count <> 0 || p.HasConstructorConstraint) |> Seq.cast |> Seq.toList
-          if (argsWithConstr.Length <> 0) then
+          if (argsWithConstr <> []) then
             id -- " when " +>
             col sepWordAnd argsWithConstr (fun (p:CodeTypeParameter) ->
               col sepWordAnd p.Constraints (fun impl ->
@@ -1067,14 +1065,14 @@ let generateCustomAttrDecl (c:CodeAttributeDeclaration) =
         id -- "(" +> (col sepArgs c.Arguments generateAttributeArg) -- ")"
 
 let generateCustomAttrDeclsList (c:CodeAttributeDeclaration list) =
-  if (c.Length = 0) then
+  if (c = []) then
       id
   else
       id ++ "[<" +> (colT sepNlnSemiSpace c generateCustomAttrDecl) -- ">]"
 
 let generateCustomAttrDeclsForType (c:Choice<CodeAttributeDeclaration,string> list) (a:Reflection.TypeAttributes) =
   id
-  +> if (c.Length = 0)
+  +> if (c = [])
         && (a &&& TypeAttributes.Abstract  = enum 0)
         && (a &&& TypeAttributes.Sealed  = enum 0) then id
       else
@@ -1468,8 +1466,10 @@ let generateClassOrStruct structOrCls (scope:string list) (c:CodeTypeDeclaration
           | :? CodeTypeDeclaration as dc -> (false, dc = c)
           | :? CodeConstructor as c -> (true, true)
           | _ -> (false, true) )
-  let anyCtor = (ctors.Length > 0)
-  let useImplicitCtor = (ctors.Length <= 1)
+  let anyCtor = (ctors <> [])
+  let useImplicitCtor = match ctors with
+                        | [] | [_] -> true
+                        | _ -> false
 
   // Find base classes
   let (baseClass, interfaces) = resolveHierarchy c ctx
@@ -1731,7 +1731,7 @@ let preprocessNamespace (c:CodeNamespace) =
     let renames =
         flatClasses
         |> List.fold ( fun acc ((scope:string list), ty) ->
-              if (scope.Length = 0) then acc
+              if (scope = []) then acc
               else addNameWithScope ty.Name scope acc ) Map.empty
 
     //if (renames |> Seq.length) > 0 then
