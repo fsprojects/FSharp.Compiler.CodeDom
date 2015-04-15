@@ -56,12 +56,13 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.Deployment.WindowsInstaller">
+    <Reference Include="Microsoft.Deployment.WindowsInstaller"
+               Condition="'$(OS)' != 'Unix'">
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModifyMachineConfig.cs" />
+    <Compile Include="ModifyMachineConfig.cs" Condition="'$(OS)' != 'Unix'" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="CustomAction.config" />
   </ItemGroup>
