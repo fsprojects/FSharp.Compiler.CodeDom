@@ -9,6 +9,8 @@ FSharp.Compiler.CodeDom
 
 ### Maintainer(s)
 
-- We are seeking a primary active maintainer for this stable repo. Please record your interest by [adding an admin issue](https://github.com/fsprojects/FsProjectsAdmin/issues)
+- [@drvink](https://github.com/drvink)
+- [@dsyme](https://github.com/dsyme)
+- [@tpetricek](https://github.com/tpetricek)
 
 The default maintainer account for projects under "fsprojects" is [@fsgit](https://github.com/fsgit) - F# Community Project Incubation Space (repo management)
