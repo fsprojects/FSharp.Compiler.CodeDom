@@ -33,7 +33,7 @@ type SimpleInstaller() =
         ignore <| codedom_node.AppendChild(elt)
         elt :> XmlNode
 
-    let file_extension = ".fs"
+    let file_extension = ".fs;.fsx;.fsscript"
     let language = "f#;fs;fsharp"
 
     let saveConfig () =
