@@ -76,7 +76,7 @@ public class ModifyMachineConfig {
     public static ActionResult AddToMachineConfig(Session session) {
         session.Log("Begin AddToMachineConfig");
         try {
-            add_entry(session["ASSEMBLYNAME"]);
+            add_entry(session.CustomActionData["ASSEMBLYNAME"]);
         } catch (Exception e) {
             session.Log("ERROR in AddToMachineConfig {0}", e.ToString());
             return ActionResult.Failure;

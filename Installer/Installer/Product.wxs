@@ -15,29 +15,18 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="FSharp.Compiler.CodeDom">
-          <Directory Id="GAC" Name="GAC" />
-        </Directory>
+        <Directory Id="INSTALLFOLDER" Name="FSharp.Compiler.CodeDom" />
       </Directory>
     </Directory>
 
-    <DirectoryRef Id="GAC">
-      <Component Id="RT_FSharpCompilerCodeDom"
-           Guid="17FC7800-C54C-497C-805E-3D645211D1E6">
-        <File Id="F_RT_FSharpCompilerCodeDom"
-              Name="FSharp.Compiler.CodeDom.dll"
-              Source="..\..\bin\FSharp.Compiler.CodeDom.dll"
-              KeyPath="yes"
-              Assembly=".net" />
-      </Component>
-    </DirectoryRef>
     <DirectoryRef Id="INSTALLFOLDER">
       <Component Id="DT_FSharpCompilerCodeDom"
                  Guid="AC80FBA4-B7C0-4CAF-AFC1-0ABF7B0A9772">
         <File Id="F_DT_FSharpCompilerCodeDom"
               Name="FSharp.Compiler.CodeDom.dll"
               Source="..\..\bin\FSharp.Compiler.CodeDom.dll"
-              KeyPath="yes" />
+              KeyPath="yes"
+              Assembly=".net" />
         <RegistryKey Root="HKLM"
                      Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\[ProductName]">
           <RegistryValue Value="[$DT_FSharpCompilerCodeDom]"
@@ -47,7 +36,6 @@
     </DirectoryRef>
 
     <Feature Id="ProductFeature" Title="FSharp.Compiler.CodeDom" Level="1">
-      <ComponentRef Id="RT_FSharpCompilerCodeDom" />
       <ComponentRef Id="DT_FSharpCompilerCodeDom" />
     </Feature>
 
@@ -56,20 +44,27 @@
 
     <CustomAction Id="AssignAssemblyName"
                   Property="ASSEMBLYNAME"
-                  Value="FSharp.Compiler.CodeDom.FSharpCodeProvider, !(bind.AssemblyFullName.F_RT_FSharpCompilerCodeDom)" />
+                  Value="FSharp.Compiler.CodeDom.FSharpCodeProvider, !(bind.AssemblyFullName.F_DT_FSharpCompilerCodeDom)" />
+
+    <CustomAction Id="SetCustomActionDataValue"
+                  Property="AddToMachineConfig"
+                  Value="ASSEMBLYNAME=[ASSEMBLYNAME]" />
     <CustomAction Id="AddToMachineConfig"
                   Return="check"
-                  Execute="immediate"
+                  Execute="deferred"
                   BinaryKey="ModifyMachineConfig.CA.dll"
-                  DllEntry="AddToMachineConfig" />
+                  DllEntry="AddToMachineConfig"
+                  Impersonate="no" />
     <CustomAction Id="RemoveFromMachineConfig"
                   Return="check"
-                  Execute="immediate"
+                  Execute="deferred"
                   BinaryKey="ModifyMachineConfig.CA.dll"
-                  DllEntry="RemoveFromMachineConfig" />
+                  DllEntry="RemoveFromMachineConfig"
+                  Impersonate="no" />
 
     <InstallExecuteSequence>
       <Custom Action="AssignAssemblyName" After="PublishProduct" />
+      <Custom Action="SetCustomActionDataValue" Before="AddToMachineConfig" />
       <Custom Action="AddToMachineConfig" Before="InstallFinalize">
         <![CDATA[NOT Installed]]>
       </Custom>
