@@ -1,10 +1,8 @@
 namespace FSharp.Compiler.CodeDom
 
-// run InstallUtil.exe on this dll to register the provider in the GAC
-//
-// note: the provider build process does not sign the dll; you will need to
-// make a key with "sn -k" and add --keyfile:path_to_key to the OtherFlags
-// property in FSharp.Compiler.CodeDom.fsproj before building
+// run InstallUtil.exe on this dll to register the provider in the GAC.  note
+// that this installer does not install the provider into the GAC; you must do
+// it yourself using gacutil.exe
 
 open System.ComponentModel
 open System.Configuration
