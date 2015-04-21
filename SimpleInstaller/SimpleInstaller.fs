@@ -17,34 +17,34 @@ open System.Xml
 type SimpleInstaller() =
     inherit Install.Installer()
 
-    static let machine_config_path =
+    let machine_config_path =
         let framework_path = RuntimeEnvironment.GetRuntimeDirectory()
         framework_path + @"CONFIG\machine.config"
-    static let machine_config = new XmlDocument()
-    static do
+    let machine_config = new XmlDocument()
+    do
         machine_config.Load(machine_config_path)
-    static let codedom_node =
+    let codedom_node =
         let cd =
           machine_config.DocumentElement.SelectSingleNode("system.codedom")
         if cd <> null then cd else
         machine_config.CreateElement("system.codedom") :> XmlNode
-    static let compilers_node =
+    let compilers_node =
         let compilers = codedom_node.SelectSingleNode("compilers")
         if compilers <> null then compilers else
         let elt = machine_config.CreateElement("compilers")
         ignore <| codedom_node.AppendChild(elt)
         elt :> XmlNode
 
-    static let file_extension = ".fs"
-    static let language = "f#;fs;fsharp"
+    let file_extension = ".fs"
+    let language = "f#;fs;fsharp"
 
-    static let save_config () =
+    let saveConfig () =
         let xws = new XmlWriterSettings(Encoding=UTF8Encoding(false),
                                         Indent=true)
         use xw = XmlWriter.Create(new StreamWriter(machine_config_path), xws)
         machine_config.Save(xw)
 
-    static let remove_entry () =
+    let removeEntry () =
         let wanted = sprintf "compiler[@language=\"%s\"]" language
         let node = compilers_node.SelectSingleNode(wanted)
         if node = null then () else
@@ -53,10 +53,10 @@ type SimpleInstaller() =
           ignore <| codedom_node.RemoveChild(compilers_node)
         if not codedom_node.HasChildNodes then
           ignore <| machine_config.DocumentElement.RemoveChild(codedom_node)
-        save_config ()
+        saveConfig ()
 
-    static let add_entry () =
-        remove_entry ()
+    let addEntry () =
+        removeEntry ()
         let node = machine_config.CreateElement("compiler")
         let attr = machine_config.CreateAttribute("language")
         attr.Value <- language
@@ -69,15 +69,15 @@ type SimpleInstaller() =
         let attr = node.Attributes.Append(attr)
         ignore <| compilers_node.AppendChild(node)
         ignore <| machine_config.DocumentElement.AppendChild(codedom_node)
-        save_config ()
+        saveConfig ()
 
     override this.Install(savedState) =
         base.Install(savedState)
-        add_entry ()
+        addEntry ()
 
     override this.Uninstall(savedState) =
         base.Uninstall(savedState)
-        remove_entry ()
+        removeEntry ()
 
     override this.Commit(savedState) =
         base.Commit(savedState)
