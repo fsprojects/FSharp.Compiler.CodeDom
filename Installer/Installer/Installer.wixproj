@@ -24,9 +24,11 @@
   <ItemGroup>
     <Compile Include="Product.wxs" />
   </ItemGroup>
-  <Import Project="$(WixTargetsPath)" />
   <!-- building the MSI installer is a no-op on Unix -->
-  <Target Name="Build" Condition="'$(OS)' == 'Unix'" />
+  <Target Name="Build" Condition="'$(OS)' == 'Unix'">
+    <Message Text="The MSI installer is not built on non-Windows platforms." />
+  </Target>
+  <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
