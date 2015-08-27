@@ -71,3 +71,8 @@
 #*.RTF   diff=astextplain
 
 *.sh text eol=lf
+
+###############################################################################
+# so that github doesn't report this as being a C# project
+###############################################################################
+/tests/* linguist-vendored
