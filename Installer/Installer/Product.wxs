@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*"
+  <Product Id="*"
            Name="FSharp.Compiler.CodeDom"
            Language="1033"
            Version="1.0.0.0"
            Manufacturer="fsprojects"
            UpgradeCode="f7577a35-41c5-4cfa-a3e1-c0c741c91a92">
-		<Package InstallerVersion="200"
+    <Package InstallerVersion="200"
              Compressed="yes"
              InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
