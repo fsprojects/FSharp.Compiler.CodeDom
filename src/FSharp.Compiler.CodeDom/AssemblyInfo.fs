@@ -5,10 +5,10 @@ open System.Reflection
 [<assembly: AssemblyTitleAttribute("FSharp.Compiler.CodeDom.dll")>]
 [<assembly: AssemblyProductAttribute("FSharp.Compiler.CodeDom.dll")>]
 [<assembly: AssemblyDescriptionAttribute("A limited CodeDom implementation for F#")>]
-[<assembly: AssemblyVersionAttribute("0.9.2")>]
-[<assembly: AssemblyFileVersionAttribute("0.9.2")>]
+[<assembly: AssemblyVersionAttribute("0.9.3")>]
+[<assembly: AssemblyFileVersionAttribute("0.9.3")>]
 [<assembly: AssemblyDefaultAliasAttribute("FSharp.Compiler.CodeDom.dll")>]
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] Version = "0.9.2"
+    let [<Literal>] Version = "0.9.3"

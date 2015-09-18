@@ -7,3 +7,6 @@
 
 #### 0.9.2 - March 23 2015
 * Update FSharp.Core version to 4.3.1.0, this helps in situations where assembly redirects cannot be applied, and most people are using F# 3.1.x
+
+#### 0.9.3 - September 18 2015
+* Add ability to specify path to fsc via FSHARPINSTALLPATH env variable
