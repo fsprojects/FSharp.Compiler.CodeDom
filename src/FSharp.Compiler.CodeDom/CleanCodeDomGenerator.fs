@@ -306,10 +306,10 @@ let decIndent (ctx:Context) =
   ctx.Writer.Indent <- ctx.Writer.Indent - 1
   ctx
 
-/// Output string as a valid F# identifier
+/// Output string as an escaped F# identifier
 let (-!) (ctx:Context -> Context) (str:String) x =
   let c = (ctx x)
-  c.Writer.Write(Generator.makeValidIdentifier str)
+  c.Writer.Write(Generator.makeEscapedIdentifier str)
   c
 
 //---------------------------------------------------------------------------------------------
@@ -682,7 +682,7 @@ and generateExpressionDefaultThis isKnownStatic c =
       match c with
       | null ->
           // REVIEW: this is still incorrect if the reference is static and it is a reference from an inherited type
-          id -- (if isKnownStatic then ctx.CurrentType.Name else "this" )
+          id -! (if isKnownStatic then ctx.CurrentType.Name else "this" )
       | _ -> generateExpression c)
 
 /// Matches array or indexer expression and corrects it if the generated CodeDOM is incorrect
@@ -748,7 +748,7 @@ and generateExpressionTyped ty c ctx =
           id
           -- "new " +> generateTypeRef ce.DelegateType -- "(FuncConvert.FuncFromTupled "
           +> generateExpression ce.TargetObject
-          -- "." -- ce.MethodName -- ")"
+          -- "." -! ce.MethodName -- ")"
 
     | :? CodeDelegateInvokeExpression as ce ->
           id
@@ -773,7 +773,7 @@ and generateExpressionTyped ty c ctx =
 
     // this prevents using mutable variable in a way it would escape its scope
     | :? CodeEventReferenceExpression as ce ->
-          id -- "let __e = " +> generateExpression ce.TargetObject -- " in __e." -- ce.EventName
+          id -- "let __e = " +> generateExpression ce.TargetObject -- " in __e." -! ce.EventName
 
     | :? CodeFieldReferenceExpression as ce ->
           withCtxt (fun ctx ->
@@ -800,7 +800,7 @@ and generateExpressionTyped ty c ctx =
                               (m.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Static)
                             | _ -> false
                         generateExpressionDefaultThis isKnownStatic ce.TargetObject
-              -- "." -- ce.FieldName )
+              -- "." -! ce.FieldName )
 
     | :? CodeMethodInvokeExpression as ce ->
           id
@@ -819,7 +819,7 @@ and generateExpressionTyped ty c ctx =
                           (m.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Static)
                         | _ -> false
                     generateExpressionDefaultThis isKnownStatic ce.TargetObject
-          -- "." -- ce.MethodName
+          -- "." -! ce.MethodName
           +> generateTypeArgs ce.TypeArguments
 
     | :? CodeObjectCreateExpression as ce ->
@@ -842,7 +842,7 @@ and generateExpressionTyped ty c ctx =
                           (m.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Static)
                         | _ -> false
                     generateExpressionDefaultThis isKnownStatic ce.TargetObject
-          -- "." -- ce.PropertyName
+          -- "." -! ce.PropertyName
 
     | :? CodePropertySetValueReferenceExpression as ce ->
           id -- "value"
@@ -896,7 +896,7 @@ let generateLinePragma (l:CodeLinePragma) =
 let rec generateCatchClause (c:CodeCatchClause) =
   id
   ++ "| :? " +> generateTypeRef c.CatchExceptionType
-  -- " as " -- c.LocalName -- " ->" +> incIndent
+  -- " as " -! c.LocalName -- " ->" +> incIndent
   +> generateStatements c.Statements +> decIndent
 
 and generateStatements (sts:CodeStatementCollection) =
@@ -1055,7 +1055,7 @@ and generateStatement (c:CodeStatement) =
 let generateAttributeArg (c:CodeAttributeArgument) =
   id
   +> if (c.Name<> null && c.Name.Length>0) then
-      id -- c.Name -- "=" else id
+      id -! c.Name -- "=" else id
   +> generateExpression c.Value
 
 let generateCustomAttrDecl (c:CodeAttributeDeclaration) =
@@ -1188,7 +1188,7 @@ let generateField (c:CodeMemberField) =
 /// Abstract property in the interface
 let generateInterfaceMemberProperty (c:CodeMemberProperty) =
   id
-  ++ "abstract " -- c.Name -- " : "
+  ++ "abstract " -! c.Name -- " : "
   +> (if c.Parameters.Count  > 0 then col sepStar c.Parameters generateAbstractParamDecl -- " -> " else id)
   +> generateTypeRef c.Type -- " with " -- (if c.HasGet && not c.HasSet then "get" elif c.HasGet && c.HasSet then "get,set" else "set")
 
@@ -1210,7 +1210,7 @@ let generateClassProperty (typ:MemberGenerateType)  (p:CodeMemberProperty) =
       elif (p.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Override) then "override  this."
       elif (p.Attributes &&& MemberAttributes.ScopeMask = MemberAttributes.Static) then "static member "
       else "default this."
-  -- p.Name
+  -! p.Name
 
   +> if (not p.HasGet) then id else
       incIndent
@@ -1281,7 +1281,7 @@ let generateConstructor (c:CodeConstructor) =
                         ++ "this._invoke_" -- e.Name -- " <- t_event_" -- e.Name -- ".Trigger;" )
             // Initialize fields
             +> colT sepNone fields (fun fld ->
-                    id ++ "this." -- fld.Name -- " <- " +> generateExpression fld.InitExpression-- ";" )
+                    id ++ "this." -! fld.Name -- " <- " +> generateExpression fld.InitExpression-- ";" )
             // Run other initialization code
             +> (if c <> null && c.Statements.Count > 0 then
                   id
@@ -1306,7 +1306,7 @@ let generateInterfaceMemberMethod (c:CodeMemberMethod, overloadId:int) =
     +> col sepNone c.Comments generateStatement
     +> generateCustomAttrDeclsList custAttrs
     ++ "abstract "
-    -- c.Name
+    -! c.Name
     +> genTyArgs
     -- " : "
     +> if (c.Parameters.Count > 0) then
@@ -1350,7 +1350,7 @@ let generateMethod (typ:MemberGenerateType) (c:CodeMemberMethod) genAttrFunc =
   usingTyParams tyargs
     (prefx
     +> genAttrFunc
-    ++ mnm -- c.Name +> genTyArgs -- " "
+    ++ mnm -! c.Name +> genTyArgs -- " "
     -- " (" +> col sepArgs c.Parameters generateParamDecl -- ")"
     -- " ="
 
@@ -1381,7 +1381,7 @@ let generateEvent (c:CodeMemberEvent) =
   id
   +> generateCustomAttrDecls c.CustomAttributes
   ++ "[<CLIEvent>]"
-  ++ "member this." -- c.Name -- " ="
+  ++ "member this." -! c.Name -- " ="
   +> incIndent
   ++ "this._event_" -- c.Name
   +> decIndent
@@ -1623,7 +1623,7 @@ let generateDelegate (scope:string list) (c:CodeTypeDelegate) =
 
 let generateEnumField (index:int) (c:CodeMemberField) =
   id
-  ++ "| " -- c.Name -- " = "
+  ++ "| " -! c.Name -- " = "
   +> match c.InitExpression with
         | null -> str index
         | :? CodePrimitiveExpression as p -> generatePrimitiveExpr None p
@@ -1687,7 +1687,7 @@ let generateMainMethod (c:CodeEntryPointMethod, t:CodeTypeDeclaration) (ns:CodeN
     ++   "let Main (args:string[]) ="
     +> incIndent
     // REVIEW: Do we need to pass this through the "rename" table?  Could use '(generateTypeRef t)', but we don't have a CodeTypeReference
-    ++ t.Name -- "." -- (c.Name)
+    ++ "" -! t.Name -- "." -! (c.Name)
     +> if c.Parameters.Count = 1
         then id -- "(args)"
         else id -- "()"
