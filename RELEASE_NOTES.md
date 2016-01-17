@@ -10,3 +10,11 @@
 
 #### 0.9.3 - September 18 2015
 * Add ability to specify path to fsc via FSHARPINSTALLPATH env variable
+
+#### 0.9.4 - January 18 2016
+* Change MSI installer to also install the provider assembly to the Program
+  Files directory and add an AssemblyFolders registry key so that the provider
+  will show up in the VS "add reference" window
+* Escape reserved F# name/keyword identifiers
+* Change CreateEscapedIdentifier and CreateValidIdentifier to behave in
+  accordance with CodeDom recommendations
