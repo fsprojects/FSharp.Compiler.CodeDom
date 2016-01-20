@@ -42,7 +42,7 @@ let description = "A limited CodeDom implementation for F#"
 let authors = [ "F# Software Foundation"; "Microsoft" ]
 
 // Tags for your project (for NuGet package)
-let tags = "CodeDom, FSharp"
+let tags = "CodeDom FSharp"
 
 // File system information 
 let solutionFile  = "FSharp.Compiler.CodeDom.sln"
@@ -73,7 +73,7 @@ let genFSAssemblyInfo (projectPath) =
     let basePath = "src/" + projectName 
     let fileName = basePath + "/AssemblyInfo.fs"
     CreateFSharpAssemblyInfo fileName
-      [ Attribute.Title (projectName)
+      [ Attribute.Title (projectName + ".dll")
         Attribute.Product project
         Attribute.Description summary
         Attribute.Version release.AssemblyVersion
@@ -84,7 +84,7 @@ let genCSAssemblyInfo (projectPath) =
     let basePath = "src/" + projectName + "/Properties"
     let fileName = basePath + "/AssemblyInfo.cs"
     CreateCSharpAssemblyInfo fileName
-      [ Attribute.Title (projectName)
+      [ Attribute.Title (projectName + ".dll")
         Attribute.Product project
         Attribute.Description summary
         Attribute.Version release.AssemblyVersion
@@ -161,7 +161,7 @@ Target "NuGet" (fun _ ->
     NuGet (fun p -> 
         { p with   
             Authors = authors
-            Project = project
+            Project = project + ".dll"
             Summary = summary
             Description = description
             Version = release.NugetVersion
