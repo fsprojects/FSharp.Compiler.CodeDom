@@ -10,6 +10,10 @@
              Compressed="yes"
              InstallScope="perMachine" />
 
+    <!-- disable "repair" and "change" buttons in Add/Remove Programs -->
+    <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
+    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate />
 
