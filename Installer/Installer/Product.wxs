@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define UpgradeCode="f7577a35-41c5-4cfa-a3e1-c0c741c91a92" ?>
+  <?define FSCCURL="https://github.com/fsprojects/FSharp.Compiler.CodeDom" ?>
+
   <Product Id="*"
            Name="FSharp.Compiler.CodeDom"
            Language="1033"
-           Version="1.0.0.0"
+           Version="!(bind.AssemblyVersion.F_RT_FSharpCompilerCodeDom)"
            Manufacturer="fsprojects"
-           UpgradeCode="f7577a35-41c5-4cfa-a3e1-c0c741c91a92">
+           UpgradeCode="$(var.UpgradeCode)">
     <Package InstallerVersion="200"
              Compressed="yes"
              InstallScope="perMachine" />
 
-    <!-- disable "repair" and "change" buttons in Add/Remove Programs -->
-    <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
-    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+    <Property Id="ARPNOREPAIR" Value="yes" />
+    <Property Id="ARPNOMODIFY" Value="yes" />
+    <Property Id="ARPURLINFOABOUT" Value="$(var.FSCCURL)" />
+    <Property Id="ARPHELPLINK" Value="$(var.FSCCURL)" />
+    <Property Id="ARPURLUPDATEINFO" Value="$(var.FSCCURL)/releases" />
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                  AllowSameVersionUpgrades="yes" />
     <MediaTemplate />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="FSharp.Compiler.CodeDom">
+        <Directory Id="INSTALLFOLDER" Name="[ProductName]">
           <Directory Id="GAC" Name="GAC" />
         </Directory>
       </Directory>
@@ -27,20 +33,19 @@
 
     <DirectoryRef Id="GAC">
       <Component Id="RT_FSharpCompilerCodeDom"
-           Guid="17FC7800-C54C-497C-805E-3D645211D1E6">
+                 Guid="17FC7800-C54C-497C-805E-3D645211D1E6">
         <File Id="F_RT_FSharpCompilerCodeDom"
-              Name="FSharp.Compiler.CodeDom.dll"
-              Source="..\..\bin\FSharp.Compiler.CodeDom.dll"
+              Source="$(var.FSCC.TargetPath)"
               KeyPath="yes"
               Assembly=".net" />
       </Component>
     </DirectoryRef>
+
     <DirectoryRef Id="INSTALLFOLDER">
       <Component Id="DT_FSharpCompilerCodeDom"
                  Guid="AC80FBA4-B7C0-4CAF-AFC1-0ABF7B0A9772">
         <File Id="F_DT_FSharpCompilerCodeDom"
-              Name="FSharp.Compiler.CodeDom.dll"
-              Source="..\..\bin\FSharp.Compiler.CodeDom.dll"
+              Source="$(var.FSCC.TargetPath)"
               KeyPath="yes" />
         <RegistryKey Root="HKLM"
                      Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\[ProductName]">
@@ -50,13 +55,15 @@
       </Component>
     </DirectoryRef>
 
-    <Feature Id="ProductFeature" Title="FSharp.Compiler.CodeDom" Level="1">
+    <Feature Id="ProductFeature" Title="[ProductName]" Level="1">
       <ComponentRef Id="RT_FSharpCompilerCodeDom" />
       <ComponentRef Id="DT_FSharpCompilerCodeDom" />
     </Feature>
 
-    <Binary Id="ModifyMachineConfig.CA.dll"
-            SourceFile="..\ModifyMachineConfig\bin\$(var.Configuration)\ModifyMachineConfig.CA.dll" />
+    <?define MMCDLL="ModifyMachineConfig.CA.dll" ?>
+
+    <Binary Id="$(var.MMCDLL)"
+            SourceFile="$(var.ModifyMachineConfig.TargetDir)$(var.ModifyMachineConfig.TargetName).CA.dll" />
 
     <CustomAction Id="AssignAssemblyName"
                   Property="ASSEMBLYNAME"
@@ -68,24 +75,22 @@
     <CustomAction Id="AddToMachineConfig"
                   Return="check"
                   Execute="deferred"
-                  BinaryKey="ModifyMachineConfig.CA.dll"
+                  BinaryKey="$(var.MMCDLL)"
                   DllEntry="AddToMachineConfig"
                   Impersonate="no" />
     <CustomAction Id="RemoveFromMachineConfig"
                   Return="check"
                   Execute="deferred"
-                  BinaryKey="ModifyMachineConfig.CA.dll"
+                  BinaryKey="$(var.MMCDLL)"
                   DllEntry="RemoveFromMachineConfig"
                   Impersonate="no" />
 
     <InstallExecuteSequence>
       <Custom Action="AssignAssemblyName" After="PublishProduct" />
       <Custom Action="SetCustomActionDataValue" Before="AddToMachineConfig" />
-      <Custom Action="AddToMachineConfig" Before="InstallFinalize">
-        <![CDATA[NOT Installed]]>
-      </Custom>
-      <Custom Action="RemoveFromMachineConfig" Before="InstallFinalize">
-        <![CDATA[Installed AND NOT UPGRADINGPRODUCTCODE]]>
+      <Custom Action="RemoveFromMachineConfig" Before="InstallFinalize" />
+      <Custom Action="AddToMachineConfig" After="RemoveFromMachineConfig">
+        <![CDATA[NOT (REMOVE="ALL")]]>
       </Custom>
     </InstallExecuteSequence>
 

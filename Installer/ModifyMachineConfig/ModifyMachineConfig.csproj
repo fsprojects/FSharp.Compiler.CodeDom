@@ -56,10 +56,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.Deployment.WindowsInstaller"
-               Condition="'$(OS)' != 'Unix'">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller" Condition="'$(OS)' != 'Unix'" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModifyMachineConfig.cs" Condition="'$(OS)' != 'Unix'" />
