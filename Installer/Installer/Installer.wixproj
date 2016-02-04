@@ -44,10 +44,6 @@
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
-  <!-- building the MSI installer is a no-op on Unix -->
-  <Target Name="Build" Condition="'$(OS)' == 'Unix'">
-    <Message Text="The MSI installer is not built on non-Windows platforms." />
-  </Target>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

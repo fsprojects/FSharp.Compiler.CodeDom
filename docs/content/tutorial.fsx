@@ -5,7 +5,7 @@
 
 (**
 Tutorial
-============
+========
 
 This is an example of generating some code using the FSharpCleanCodeProvider. First we reference the assembly:
 *)

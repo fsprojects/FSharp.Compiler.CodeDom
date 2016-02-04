@@ -1,0 +1,22 @@
+type project
+owners
+    F# Software Foundation; Microsoft
+authors 
+    F# Software Foundation; Microsoft
+projectUrl
+    http://github.com/fsprojects/FSharp.Compiler.CodeDom
+iconUrl
+    https://raw.githubusercontent.com/fsprojects/FSharp.Compiler.CodeDom/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/fsprojects/FSharp.Compiler.CodeDom/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2015
+tags
+    CodeDom FSharp
+summary
+    A limited CodeDom implementation for F#
+description
+    A limited CodeDom implementation for F#
+include-pdbs true
