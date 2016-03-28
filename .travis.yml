@@ -4,7 +4,7 @@ env:
   matrix:
     - MONO_VERSION="3.4.0"
 
-sudo: false
+sudo: required
 
 before_install:
   - chmod +x build.sh
