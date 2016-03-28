@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,18 +53,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.Deployment.WindowsInstaller"
-               Condition="'$(OS)' != 'Unix'">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModifyMachineConfig.cs" Condition="'$(OS)' != 'Unix'" />
+    <Compile Include="ModifyMachineConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="CustomAction.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\InstallLib\InstallLib.csproj">
+      <Project>{d26267bf-f93b-4e1b-a6c9-63b9653e97df}</Project>
+      <Name>InstallLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(WixCATargetsPath)" />

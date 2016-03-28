@@ -19,20 +19,20 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
-    <OutputPath>..\..\bin</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>..\..\bin\FSharp.Compiler.CodeDom.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\FSharp.Compiler.CodeDom.xml</DocumentationFile>
     <OtherFlags>--keyfile:..\..\mono.snk</OtherFlags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
-    <OutputPath>..\..\bin</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>..\..\bin\FSharp.Compiler.CodeDom.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\FSharp.Compiler.CodeDom.xml</DocumentationFile>
     <OtherFlags>--keyfile:..\..\mono.snk</OtherFlags>
   </PropertyGroup>
   <PropertyGroup>
@@ -62,14 +62,16 @@
     <Compile Include="CodeProvider.fs" />
     <Compile Include="CleanCodeDomGenerator.fs" />
     <Compile Include="CleanCodeProvider.fs" />
-  </ItemGroup>
+    <None Include="paket.references" />
+    <None Include="paket.template" />  </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
+  <Import Project="..\..\.paket\paket.targets" />
 </Project>

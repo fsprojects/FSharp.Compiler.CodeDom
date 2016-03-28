@@ -17,7 +17,7 @@ msbuild.exe CodeDOM.TestSuite.csproj
 
 if not exist bin\Debug\CdtSuite.exe goto Error
 
-bin\Debug\CdtSuite.exe /testcaselib:bin\Debug\tests.dll /codedomproviderlib:..\..\bin\FSharp.Compiler.CodeDom.dll /codedomprovider:FSharp.Compiler.CodeDom.FSharpCodeProvider > test.out
+bin\Debug\CdtSuite.exe /testcaselib:bin\Debug\tests.dll /codedomproviderlib:..\..\src\FSharp.Compiler.CodeDom\bin\Debug\FSharp.Compiler.CodeDom.dll /codedomprovider:FSharp.Compiler.CodeDom.FSharpCodeProvider > test.out
 
 if not exist test.out goto Error
 type test.out
