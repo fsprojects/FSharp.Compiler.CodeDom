@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{63297B98-5CED-492C-A5B7-A5B4F73CF142}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED8079DD
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Compiler.CodeDom.Tests", "tests\FSharp.Compiler.CodeDom.Tests\FSharp.Compiler.CodeDom.Tests.fsproj", "{E789C72A-5CFD-436B-8EF1-61AA2852A89F}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SimpleInstaller", "SimpleInstaller\SimpleInstaller.fsproj", "{0B6D0603-F6A3-4DCD-B85B-2D5567985964}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInstaller", "SimpleInstaller\SimpleInstaller.csproj", "{0B6D0603-F6A3-4DCD-B85B-2D5567985964}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7E90D6CE-A10B-4858-A5BC-41DF7250CBCA} = {7E90D6CE-A10B-4858-A5BC-41DF7250CBCA}
 	EndProjectSection
@@ -48,6 +48,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Inst
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModifyMachineConfig", "Installer\ModifyMachineConfig\ModifyMachineConfig.csproj", "{FF7B6CD8-5755-4ED5-9BAC-34DDB6D2328F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallLib", "InstallLib\InstallLib.csproj", "{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,18 @@ Global
 		{FF7B6CD8-5755-4ED5-9BAC-34DDB6D2328F}.Release|x64.Build.0 = Release|x64
 		{FF7B6CD8-5755-4ED5-9BAC-34DDB6D2328F}.Release|x86.ActiveCfg = Release|x86
 		{FF7B6CD8-5755-4ED5-9BAC-34DDB6D2328F}.Release|x86.Build.0 = Release|x86
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{D26267BF-F93B-4E1B-A6C9-63B9653E97DF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
