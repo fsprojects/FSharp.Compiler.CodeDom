@@ -6,9 +6,9 @@ open System.Reflection
 [<assembly: AssemblyCompanyAttribute("F# Software Foundation, Microsoft")>]
 [<assembly: AssemblyCopyrightAttribute("Copyright © 2004 - 2016 Microsoft")>]
 [<assembly: AssemblyDescriptionAttribute("A limited CodeDom implementation for F#")>]
-[<assembly: AssemblyVersionAttribute("0.9.4")>]
-[<assembly: AssemblyFileVersionAttribute("0.9.4")>]
+[<assembly: AssemblyVersionAttribute("1.0.0.1")>]
+[<assembly: AssemblyFileVersionAttribute("1.0.0.1")>]
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] Version = "0.9.4"
+    let [<Literal>] Version = "1.0.0.1"
