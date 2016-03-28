@@ -19,7 +19,9 @@ module internal Global =
     let (++) x y = Path.Combine(x,y)
 
     // search for "fsc.exe"
-    let FscExeBaseName = "fsc.exe"
+    let FscExeBaseName =
+      if System.Type.GetType("Mono.Runtime") <> null then "fsharpc"
+      else "fsc.exe"
 
 
     let FscPath =
