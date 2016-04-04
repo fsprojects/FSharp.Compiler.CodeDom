@@ -25,7 +25,7 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="[ProductName]">
+        <Directory Id="INSTALLFOLDER" Name="!(bind.property.ProductName)">
           <Directory Id="GAC" Name="GAC" />
         </Directory>
       </Directory>
@@ -48,14 +48,14 @@
               Source="$(var.FSCC.TargetPath)"
               KeyPath="yes" />
         <RegistryKey Root="HKLM"
-                     Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\[ProductName]">
+                     Key="SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\!(bind.property.ProductName)">
           <RegistryValue Value="[$DT_FSharpCompilerCodeDom]"
                          Type="string" />
         </RegistryKey>
       </Component>
     </DirectoryRef>
 
-    <Feature Id="ProductFeature" Title="[ProductName]" Level="1">
+    <Feature Id="ProductFeature" Title="!(bind.property.ProductName)" Level="1">
       <ComponentRef Id="RT_FSharpCompilerCodeDom" />
       <ComponentRef Id="DT_FSharpCompilerCodeDom" />
     </Feature>
