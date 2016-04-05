@@ -38,7 +38,11 @@ let tags = "CodeDom FSharp"
 #if MONO
 let solutionFile  = "FSharp.Compiler.CodeDom-mono.sln"
 #else
+#if BUILD_INSTALLER
+let solutionFile = "FSharp.Compiler.CodeDom-msi.sln"
+#else
 let solutionFile  = "FSharp.Compiler.CodeDom.sln"
+#endif
 #endif
 
 // Pattern specifying assemblies to be tested using NUnit
