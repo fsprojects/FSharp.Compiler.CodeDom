@@ -8,6 +8,7 @@ FSharp.Compiler.CodeDom
 
 [![NuGet](https://buildstats.info/nuget/FSharp.Compiler.CodeDom?includePreReleases=true)](https://www.nuget.org/packages/FSharp.Compiler.CodeDom)
 [![Travis](https://travis-ci.org/fsprojects/FSharp.Compiler.CodeDom.svg)](https://travis-ci.org/fsprojects/FSharp.Compiler.CodeDom)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/wfq1c27yt1ccu4pj?svg=true)](https://ci.appveyor.com/project/sergey-tihon/fsharp-compiler-codedom)
 
 ### Maintainer(s)
 
