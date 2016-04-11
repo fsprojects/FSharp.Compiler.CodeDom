@@ -1,17 +1,11 @@
 language: csharp
 
-env:
-  matrix:
-    - MONO_VERSION="3.4.0"
-
-sudo: required
+os:
+  - linux
+  - osx
 
 before_install:
   - chmod +x build.sh
 
-install:
-  - wget "http://download.mono-project.com/archive/3.4.0/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
-  - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
-
 script: 
-  - ./build.sh All
+  - ./build.sh Debug

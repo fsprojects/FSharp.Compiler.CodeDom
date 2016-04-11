@@ -5,7 +5,10 @@ FSharp.Compiler.CodeDom
 =======================
 
 [An F# CodeDOM implementation](http://fsprojects.github.io/FSharp.Compiler.CodeDom/) (based on the one in the F# power pack)
-[![NuGet Status](http://img.shields.io/nuget/v/FSharp.Compiler.CodeDom.svg?style=flat)](https://www.nuget.org/packages/FSharp.Compiler.CodeDom/)
+
+[![NuGet](https://buildstats.info/nuget/FSharp.Compiler.CodeDom?includePreReleases=true)](https://www.nuget.org/packages/FSharp.Compiler.CodeDom)
+[![Travis](https://travis-ci.org/fsprojects/FSharp.Compiler.CodeDom.svg)](https://travis-ci.org/fsprojects/FSharp.Compiler.CodeDom)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/wfq1c27yt1ccu4pj?svg=true)](https://ci.appveyor.com/project/sergey-tihon/fsharp-compiler-codedom)
 
 ### Maintainer(s)
 
