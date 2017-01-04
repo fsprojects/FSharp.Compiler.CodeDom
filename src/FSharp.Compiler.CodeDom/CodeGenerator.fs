@@ -445,8 +445,14 @@ and getBaseTypeRef (cr:CodeTypeReference) renames (ns:string) (tyParams:Set<stri
                   i <- i + 1
       | _ -> sb.Append(c) |> ignore
     i <- i + 1
+
   // generate type arguments
-  sb.Append(getTypeArgs cr.TypeArguments renames ns tyParams fsSyntax).ToString()
+  let gta = getTypeArgs cr.TypeArguments renames ns tyParams fsSyntax
+
+  // Check for standard F# generic types
+  match sb.ToString() with
+            | "Microsoft.FSharp.Core.FSharpOption" -> "Option" + gta
+            | _ -> sb.Append(gta) |> fun x -> x.ToString()
 
 /// Generate type reference with empty context
 and getBaseTypeRefString (s:string) =
