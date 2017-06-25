@@ -17,3 +17,5 @@ FSharp.Compiler.CodeDom
 - [@tpetricek](https://github.com/tpetricek)
 
 The default maintainer account for projects under "fsprojects" is [@fsprojectsgit](https://github.com/fsprojectsgit) - F# Community Project Incubation Space (repo management)
+
+To generate the documentation, build the library from the command line with `build Release`. The tutorial html page will be under docs\output. 
