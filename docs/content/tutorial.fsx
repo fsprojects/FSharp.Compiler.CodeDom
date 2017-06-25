@@ -14,7 +14,7 @@ Windows) or write permission to the Mono GAC and `machine.config` file (on
 Unix).  A system-wide install can coexist with individual NuGet installs.
 
 To perform a system-wide install on Windows, build the library from the command
-line with `build Release`.  A MSI package will be produced in
+line with `build Release --build-installer`.  A MSI package will be produced in
 `Installer\Installer\bin\Release`.  After installation, the library will be
 available for use.
 
