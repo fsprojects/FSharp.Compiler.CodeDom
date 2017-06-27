@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>FSharp.Compiler.CodeDom.Tests</RootNamespace>
     <AssemblyName>FSharp.Compiler.CodeDom.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>FSharp.Compiler.CodeDom.Tests</Name>
     <TargetFrameworkProfile />
