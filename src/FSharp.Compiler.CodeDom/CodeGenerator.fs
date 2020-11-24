@@ -1611,6 +1611,7 @@ let generateDelegate (scope:string list) (c:CodeTypeDelegate) =
 
 let generateEnumField (index:int) (c:CodeMemberField) =
   id
+  +> col sepNone c.Comments generateStatement
   ++ "| "
   +> generateCustomAttrDeclsForEnumField c.CustomAttributes ""
   -! c.Name -- " = "
