@@ -1067,15 +1067,19 @@ let generateCustomAttrDecl (c:CodeAttributeDeclaration) =
   +> if (c.Arguments.Count = 0) then id else
         id -- "(" +> (col sepArgs c.Arguments generateAttributeArg) -- ")"
 
-let generateCustomAttrDeclsList (c:CodeAttributeDeclaration list) target =
+let flip f x y = f y x
+
+let generateCustomAttrDeclsList' before after (c:CodeAttributeDeclaration list) target =
   let has_target = not (String.IsNullOrEmpty(target))
   id
   +> if (c = []) then id else
-        id ++ "[<"
+        before id "[<"
         -- if has_target then target + ": " else ""
         +> (colT sepNlnSemiSpace c (fun x -> generateCustomAttrDecl x))
         -- ">]"
-        ++ if has_target && target = "assembly" then "do ()" else ""
+        |> (flip after) (if has_target && target = "assembly" then "do ()" else "")
+
+let generateCustomAttrDeclsList = generateCustomAttrDeclsList' (++) (++)
 
 let generateCustomAttrDeclsForType (c:CodeAttributeDeclaration list) (a:Reflection.TypeAttributes) =
   id
@@ -1127,6 +1131,10 @@ HasSecurity
 let generateCustomAttrDecls (c:CodeAttributeDeclarationCollection) =
   generateCustomAttrDeclsList (c |> Seq.cast |> Seq.toList)
 
+let generateCustomAttrDeclsForEnumField (c:CodeAttributeDeclarationCollection) =
+  let after x y = x ++ "  " -- y
+  generateCustomAttrDeclsList' (--) after (c |> Seq.cast |> Seq.toList)
+
 // NOTE: may contain custom attributes - this isn't supported
 let generateParamDecl (c:CodeParameterDeclarationExpression) =
   let dir = if (c.Direction <> FieldDirection.In) then " byref" else ""
@@ -1175,7 +1183,7 @@ let getMethodOverloads (membs:CodeTypeMemberCollection) =
 /// fields
 let generateField (c:CodeMemberField) =
   id
-  +> generateCustomAttrDecls c.CustomAttributes ""
+  +> (generateCustomAttrDeclsForEnumField c.CustomAttributes "")
   +> if ((c.Attributes &&& MemberAttributes.ScopeMask) = MemberAttributes.Static) then
         id
         ++ "[<Microsoft.FSharp.Core.DefaultValueAttribute(false)>]"
@@ -1603,7 +1611,9 @@ let generateDelegate (scope:string list) (c:CodeTypeDelegate) =
 
 let generateEnumField (index:int) (c:CodeMemberField) =
   id
-  ++ "| " -! c.Name -- " = "
+  ++ "| "
+  +> generateCustomAttrDeclsForEnumField c.CustomAttributes ""
+  -! c.Name -- " = "
   +> match c.InitExpression with
         | null -> str index
         | :? CodePrimitiveExpression as p -> generatePrimitiveExpr None p
