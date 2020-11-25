@@ -12,5 +12,6 @@ group Build
 group Test
   source https://nuget.org/api/v2
   
+  nuget FSharp.Core 4.5.0.0 copy_local: true
   nuget NUnit ~> 2
   nuget NUnit.Runners ~> 2

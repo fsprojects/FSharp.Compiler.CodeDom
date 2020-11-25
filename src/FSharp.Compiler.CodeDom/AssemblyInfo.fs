@@ -5,7 +5,7 @@ open System.Reflection
 [<assembly: AssemblyTitleAttribute("FSharp.Compiler.CodeDom.dll")>]
 [<assembly: AssemblyProductAttribute("FSharp.Compiler.CodeDom")>]
 [<assembly: AssemblyCompanyAttribute("F# Software Foundation, Microsoft")>]
-[<assembly: AssemblyCopyrightAttribute("Copyright © 2004 - 2017 Microsoft")>]
+[<assembly: AssemblyCopyrightAttribute("Copyright © 2004 - 2020 Microsoft")>]
 [<assembly: AssemblyDescriptionAttribute("A limited CodeDom implementation for F#")>]
 [<assembly: AssemblyVersionAttribute("1.0.0.1")>]
 [<assembly: AssemblyFileVersionAttribute("1.0.0.1")>]
@@ -15,7 +15,7 @@ module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyTitle = "FSharp.Compiler.CodeDom.dll"
     let [<Literal>] AssemblyProduct = "FSharp.Compiler.CodeDom"
     let [<Literal>] AssemblyCompany = "F# Software Foundation, Microsoft"
-    let [<Literal>] AssemblyCopyright = "Copyright © 2004 - 2017 Microsoft"
+    let [<Literal>] AssemblyCopyright = "Copyright © 2004 - 2020 Microsoft"
     let [<Literal>] AssemblyDescription = "A limited CodeDom implementation for F#"
     let [<Literal>] AssemblyVersion = "1.0.0.1"
     let [<Literal>] AssemblyFileVersion = "1.0.0.1"
