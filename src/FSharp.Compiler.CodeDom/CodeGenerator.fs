@@ -1183,7 +1183,7 @@ let getMethodOverloads (membs:CodeTypeMemberCollection) =
 /// fields
 let generateField (c:CodeMemberField) =
   id
-  +> generateCustomAttrDeclsForEnumField c.CustomAttributes ""
+  +> generateCustomAttrDecls c.CustomAttributes ""
   +> if ((c.Attributes &&& MemberAttributes.ScopeMask) = MemberAttributes.Static) then
         id
         ++ "[<Microsoft.FSharp.Core.DefaultValueAttribute(false)>]"
